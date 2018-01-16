@@ -1,0 +1,58 @@
+﻿@model Beervolution.Models.Brew
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Brew</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StartingGravity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartingGravity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FinalGravity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FinalGravity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BottleDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BottleDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SecondaryFermentationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SecondaryFermentationDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

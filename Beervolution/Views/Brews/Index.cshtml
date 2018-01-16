@@ -1,0 +1,65 @@
+﻿@model IEnumerable<Beervolution.Models.Brew>
+
+<style>
+    .padding-top {
+        padding-top: 20px;
+    }
+</style>
+
+<div class="row padding-top">
+    <div class="col-sm-6">
+        <h2>Brews</h2>
+        @Html.ActionLink("Create New Brew", "Create", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-sm-6 text-right">
+        <img src="~/Images/barrel-icon.png" width="15%" , height="15%" title="Brew" />
+    </div>
+</div>
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StartingGravity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FinalGravity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BottleDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SecondaryFermentationDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartingGravity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalGravity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StartDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BottleDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SecondaryFermentationDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

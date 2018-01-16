@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sitemanifest>
+  <DbDacFx path="h:\documents\visual studio 2017\Projects\Beervolution\Beervolution\obj\Release\AutoScripts\BeerContext_IncrementalSchemaOnly.dacpac" dacpacAction="Deploy" />
+  <IisApp path="h:\documents\visual studio 2017\Projects\Beervolution\Beervolution\obj\Release\Package\PackageTmp" />
+  <setAcl path="h:\documents\visual studio 2017\Projects\Beervolution\Beervolution\obj\Release\Package\PackageTmp" setAclResourceType="Directory" />
+  <setAcl path="h:\documents\visual studio 2017\Projects\Beervolution\Beervolution\obj\Release\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
+</sitemanifest>
