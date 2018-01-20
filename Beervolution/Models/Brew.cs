@@ -25,6 +25,9 @@ namespace Beervolution.Models
         [Display(Name = "Bottle Date")]
         public DateTime BottleDate { get; set; }
 
+        [Display(Name = "Secondary Fermentation")]
+        public bool SecondaryFermentation { get; set; }
+
         [Display(Name = "Secondary Fermentation Date")]
         public DateTime? SecondaryFermentationDate { get; set; }
 

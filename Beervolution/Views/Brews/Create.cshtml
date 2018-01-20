@@ -1,6 +1,31 @@
 ﻿@model Beervolution.Models.Brew
 
+<script type="text/javascript">
+    $(function () {
+        $("#hidethis").hide();
+
+        $("#SecondaryFermentation").click(function () {
+            if ($(this).is(':checked')) {
+                $("#hidethis").show();
+            }
+            else {
+                $("#hidethis").hide();
+            }
+        });
+    });
+
+
+    $(function () {
+        $('.datepicker').datetimepicker({
+            format: 'mm-dd-yyyy'
+        });
+    });
+</script>
+
 <style>
+    .hidethis {
+    }
+
     .padding-top {
         padding-top: 20px;
     }
@@ -16,7 +41,8 @@
     </div>
 </div>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
+
 {
     @Html.AntiForgeryToken()
 
@@ -28,6 +54,7 @@
             @Html.Label("Beer", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Beervolution.Helpers.HtmlHelper.CreateBeerDropDown(null)
+                @Html.ActionLink("Beer not in the list? Click here to create a new beer", "Create", "Beers")
             </div>
         </div>
 
@@ -50,7 +77,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
                 @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,6 +91,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.SecondaryFermentation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.SecondaryFermentation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondaryFermentation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" id="hidethis">
             @Html.LabelFor(model => model.SecondaryFermentationDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.SecondaryFermentationDate, new { htmlAttributes = new { @class = "form-control" } })
@@ -78,8 +113,4 @@
             </div>
         </div>
     </div>
-}
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
 }

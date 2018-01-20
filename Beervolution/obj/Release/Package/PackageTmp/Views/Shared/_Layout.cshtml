@@ -6,7 +6,15 @@
     <title>Beervolution</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Scripts.Render("~/bundles/datetimepicker")
+
     <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+
     <style>
         .navbar .container .navbar-brand {
             font-family: 'Audiowide';
@@ -34,6 +42,11 @@
                 </button>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Our Beers", "", "")</li>
+                    <li>@Html.ActionLink("Advice for Noobs", "", "")</li>
+                    <li>@Html.ActionLink("Live Feed", "", "")</li>
+                </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>@Html.ActionLink("Admin", "Admin", "Home")</li>
                 </ul>
