@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Beervolution.Models;
+using System.Threading;
+using System.Globalization;
 
 namespace Beervolution.Controllers
 {
@@ -44,7 +46,7 @@ namespace Beervolution.Controllers
         // POST: Brews/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,StartingGravity,FinalGravity,Percentage,StartDate,BottleDate,SecondaryFermentationDate")] Brew brew)
+        public ActionResult Create([Bind(Include = "ID,StartingGravity,FinalGravity,StartDate,BottleDate,SecondaryFermentationDate,Variables")] Brew brew)
         {
             if (ModelState.IsValid)
             {

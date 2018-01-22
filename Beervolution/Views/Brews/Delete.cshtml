@@ -1,6 +1,11 @@
 ﻿@model Beervolution.Models.Brew
 
 <style>
+    .icon-size {
+        height: 15%;
+        width: 15%;
+    }
+
     .padding-top {
         padding-top: 20px;
     }
@@ -12,7 +17,7 @@
         <h4></h4>
     </div>
     <div class="col-sm-6 text-right">
-        <img src="~/Images/barrel-delete-icon.png" title="Delete beer" width="15%" height="15%" />
+        <img src="~/Images/barrel-delete-icon.png" title="Delete beer" class="icon-size" />
     </div>
 </div>
 
@@ -49,14 +54,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.BottleDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecondaryFermentationDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecondaryFermentationDate)
         </dd>
 
     </dl>
