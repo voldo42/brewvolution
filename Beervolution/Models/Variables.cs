@@ -11,6 +11,7 @@ namespace Beervolution.Models
         [Key]
         public int ID { get; set; }
 
+        [Required]
         [Display(Name = "Fermentable Type")]
         public string FermentableType { get; set; }
 
@@ -18,6 +19,7 @@ namespace Beervolution.Models
         [Display(Name = "Fermentable Amount")]
         public double FermentableAmount { get; set; }
 
+        [Required]
         [Display(Name = "Water Type")]
         public string WaterType { get; set; }
 

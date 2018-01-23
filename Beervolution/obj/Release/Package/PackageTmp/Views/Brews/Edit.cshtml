@@ -1,57 +1,169 @@
 ﻿@model Beervolution.Models.Brew
 
-<h2>Edit</h2>
+<script type="text/javascript">
+    $.noConflict();
+    jQuery(document).ready(function ($) {
+        $('.datepicker').datetimepicker({
+            format: 'DD/MM/YYYY'
+        });
+    });
+</script>
+
+<style>
+    .icon-size {
+        height: 15%;
+        width: 15%;
+    }
+
+    .padding-top {
+        padding-top: 20px;
+    }
+</style>
+
+<div class="row padding-top">
+    <div class="col-md-6">
+        <h3>Edit Brew</h3>
+        <h4>Make changes to the brew.</h4>
+    </div>
+    <div class="col-md-6 text-right">
+        <img src="~/Images/barrel-icon.png" title="Brew" class="icon-size" />
+    </div>
+</div>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Brew</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.ID)
+    <div class="row">
+        <div class="col-md-6 form-group">
+            <h3>Brew Details</h3>
+            <div class="form-horizontal padding-top">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.ID)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartingGravity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartingGravity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartingGravity, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.BottleDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.BottleDate, new { htmlAttributes = new { @class = "form-control datepicker" } })
+                        @Html.ValidationMessageFor(model => model.BottleDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StartingGravity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.StartingGravity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.StartingGravity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FinalGravity, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FinalGravity, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FinalGravity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.FinalGravity, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FinalGravity, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FinalGravity, "", new { @class = "text-danger" })
+        <div class="col-md-6 form-group">
+
+            <h3>Variables</h3>
+            <div class="form-horizontal well padding-top">
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.WaterType, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Variables.WaterType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Variables.WaterType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.FermentableType, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Variables.FermentableType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Variables.FermentableType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.FermentableAmount, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8 form-inline">
+                        @Html.EditorFor(model => model.Variables.FermentableAmount, new { htmlAttributes = new { @class = "form-control" } }) KG
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(model => model.Variables.FermentableAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.TotalVolume, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8 form-inline">
+                        @Html.EditorFor(model => model.Variables.TotalVolume, new { htmlAttributes = new { @class = "form-control" } }) L
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(model => model.Variables.TotalVolume, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.BrewTemp, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8 form-inline">
+                        @Html.EditorFor(model => model.Variables.BrewTemp, new { htmlAttributes = new { @class = "form-control" } }) &deg;C
+                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8">
+                        @Html.ValidationMessageFor(model => model.Variables.BrewTemp, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Variables.HopDetails, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-8">
+                        @Html.TextAreaFor(model => model.Variables.HopDetails, 3, 40, new { @class = "form-control", placeholder = "What kind of hops did you add?" })
+                        @Html.ValidationMessageFor(model => model.Variables.HopDetails, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.BottleDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.BottleDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.BottleDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" /> |
+                    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+                </div>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

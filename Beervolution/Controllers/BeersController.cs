@@ -107,9 +107,6 @@ namespace Beervolution.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Beer beer = context.Beers.Find(id);
-            //List<Brew> brews = beer.Brews.ToList().include;
-
-            //context.Brews.RemoveRange(brews);
             context.Beers.Remove(beer);
             context.SaveChanges();
             return RedirectToAction("Index");
@@ -122,6 +119,17 @@ namespace Beervolution.Controllers
                 context.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public JsonResult GetBeers(int? id)
+        {
+            List<SelectListItem> beerList = new List<SelectListItem>();
+
+            var beers = context.Beers.ToList();
+            beers.OrderBy(b => b);
+            beers.ForEach(b => beerList.Add(new SelectListItem { Text = String.Format("{0} ({1})", b.Name, b.Manufacturer), Value = b.ID.ToString() }));
+
+            return Json(new SelectList(beerList, "Value", "Text"));
         }
     }
 }

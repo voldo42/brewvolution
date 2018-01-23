@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Beervolution.Models.Brew>
+﻿@model IEnumerable<Beervolution.Models.Beer>
 
 <style>
     .icon-size {
@@ -17,48 +17,47 @@
         @Html.ActionLink("Create New Brew", "Create", null, new { @class = "btn btn-default" })
     </div>
     <div class="col-sm-6 text-right">
-        <img src="~/Images/barrel-icon.png" title="Brew" class="icon-size"/>
+        <img src="~/Images/barrel-icon.png" title="Brew" class="icon-size" />
     </div>
 </div>
 <br />
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.StartingGravity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FinalGravity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BottleDate)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartingGravity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalGravity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BottleDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var beer in Model)
+    {
+        <tr>
+            @String.Format("{0} ({1}%)", beer.Name, beer.TargetPercentage)
+        </tr>
+
+        if (beer.Brews != null)
+        {
+            foreach (var brew in beer.Brews)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => brew.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brew.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => brew.BottleDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = brew.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = brew.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = brew.ID })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                No brews available
+            </tr>
+        }
+    }
 
 </table>

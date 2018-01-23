@@ -12,12 +12,12 @@ namespace Beervolution.Controllers
 {
     public class UsersController : Controller
     {
-        private BeerContext db = new BeerContext();
+        private BeerContext context = new BeerContext();
 
         // GET: Users
         public ActionResult Index()
         {
-            return View(db.Users.ToList());
+            return View(context.Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -27,7 +27,7 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = context.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -50,8 +50,8 @@ namespace Beervolution.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Users.Add(user);
-                db.SaveChanges();
+                context.Users.Add(user);
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +65,7 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = context.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -82,8 +82,8 @@ namespace Beervolution.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
+                context.Entry(user).State = EntityState.Modified;
+                context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -96,7 +96,7 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+            User user = context.Users.Find(id);
             if (user == null)
             {
                 return HttpNotFound();
@@ -109,9 +109,9 @@ namespace Beervolution.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
+            User user = context.Users.Find(id);
+            context.Users.Remove(user);
+            context.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -119,7 +119,7 @@ namespace Beervolution.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                context.Dispose();
             }
             base.Dispose(disposing);
         }
