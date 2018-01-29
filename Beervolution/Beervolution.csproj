@@ -148,6 +148,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Models\UserComment.cs" />
+    <Compile Include="Models\Manufacturer.cs" />
+    <Compile Include="ViewModels\CreateBeerViewModel.cs" />
     <Compile Include="ViewModels\CreateBrewViewModel.cs" />
     <Compile Include="Controllers\BeersController.cs" />
     <Compile Include="Controllers\BrewsController.cs" />
@@ -311,6 +314,7 @@
     <Content Include="Images\barrel-delete-icon.png" />
     <Content Include="Images\beer-delete-icon.png" />
     <Content Include="Images\home-image.jpg" />
+    <Content Include="Images\no-image.jpg" />
     <Content Include="Images\user-icon.png" />
     <Content Include="Images\barrel-icon.png" />
     <Content Include="Images\beer-icon.png" />
@@ -400,7 +404,9 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -427,6 +433,8 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Beers\Index - Copy.cshtml" />
+    <Content Include="Views\Beers\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

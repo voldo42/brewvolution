@@ -6,23 +6,15 @@ using System.Web;
 
 namespace Beervolution.Models
 {
-    public class User
+    public class Manufacturer
     {
         [Key]
         public int ID { get; set; }
 
+        [Required]
+        [Display(Name = "Manufacturer")]
         public string Name { get; set; }
 
-        public string SID { get; set; }
-
-        [Display(Name = "Permission Group")]
-        public Group PermissionGroup { get; set; }
-
-        public enum Group
-        {
-            Admin,
-            Reviewer,
-            Guest
-        };
+        public virtual List<Beer> Beers { get; set; }
     }
 }

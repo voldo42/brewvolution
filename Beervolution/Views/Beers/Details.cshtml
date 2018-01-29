@@ -1,0 +1,99 @@
+﻿@model Beervolution.Models.Beer
+
+<style>
+    .icon-size {
+        height: 15%;
+        width: 15%;
+    }
+
+    .padding-top {
+        padding-top: 20px;
+    }
+</style>
+
+<h2>@Model.Manufacturer.Name - @Model.Name</h2>
+
+<div class="padding-top">
+    <div class="row">
+        <div class="col-md-8">
+            <h3>Description</h3>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Manufacturer.Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Manufacturer.Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Type)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Type)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.InclusiveKit)
+                </dt>
+
+                <dd>
+                    @{string isInclusive = Model.InclusiveKit ? "Yes" : "No"; }
+                    @isInclusive
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.TargetPercentage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.TargetPercentage) %
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <br />
+            @if (!String.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img class="group list-group-image" src="@Model.ImageUrl" style="width:400px; height:250px" />
+            }
+            else
+            {
+                <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:250px" />
+            }
+        </div>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <h4>Have you made this beer?</h4>
+        @Html.ActionLink("Create a Brew with this Beer", "Create", "Brews", new { beerID = Model.ID }, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-6 text-right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-default" })
+    </div>
+</div>
+
+
+
+

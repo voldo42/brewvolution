@@ -15,6 +15,7 @@ namespace Beervolution.ViewModels
             Brew.Variables = new Variables();
         }
 
+        [Required]
         public int BeerID { get; set; }
 
         public Brew Brew { get; set; }
@@ -22,7 +23,11 @@ namespace Beervolution.ViewModels
         [Display(Name = "New Water Type")]
         public string NewWaterType { get; set; }
 
+        public string OriginalWaterType { get; set; }
+
         [Display(Name = "New Fermentable Type")]
         public string NewFermentableType { get; set; }
+
+        public string OriginalFermentableType { get; set; }
     }
 }

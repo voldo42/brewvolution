@@ -21,5 +21,9 @@ namespace Beervolution.Models
         public int OverallRating { get; set; }
 
         public string Comments { get; set; }
+
+        public User CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

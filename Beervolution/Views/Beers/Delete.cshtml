@@ -33,11 +33,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Manufacturer)
+            @Html.DisplayNameFor(model => model.Manufacturer.Name)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Manufacturer)
+            @Html.DisplayFor(model => model.Manufacturer.Name)
         </dd>
 
         <dt>
@@ -62,9 +62,8 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TargetPercentage)
+            @Html.DisplayFor(model => model.TargetPercentage) %
         </dd>
-
     </dl>
 
     <br />

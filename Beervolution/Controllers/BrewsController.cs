@@ -45,15 +45,32 @@ namespace Beervolution.Controllers
             return View();
         }
 
+        // GET: Brews/Create/5
+        //public ActionResult Create(int beerID)
+        //{
+        //        CreateBrewViewModel viewModel = new CreateBrewViewModel
+        //        {
+        //            BeerID = beerID
+        //        };
+
+        //    return View(viewModel);
+        //}
+
         // POST: Brews/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BeerID,Brew,NewWaterType,NewFermentableType,Variables")] CreateBrewViewModel newBrew)
         {
-             if (ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                //Beer beer = db.Beers.Find()
+                newBrew.Brew.Variables.WaterType =
+                    newBrew.Brew.Variables.WaterType == "Create New" ? newBrew.NewWaterType : newBrew.Brew.Variables.WaterType;
 
+                newBrew.Brew.Variables.FermentableType =
+                    newBrew.Brew.Variables.FermentableType == "Create New" ? newBrew.NewFermentableType : newBrew.Brew.Variables.FermentableType;
+
+                Beer beer = context.Beers.Find(newBrew.BeerID);
+                beer.Brews.Add(newBrew.Brew);
 
                 context.SaveChanges();
                 return RedirectToAction("Index");
@@ -69,12 +86,21 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brew brew = context.Brews.Find(id);
+            Brew brew = context.Brews.Include(b => b.Variables).SingleOrDefault(b => b.ID == id);
             if (brew == null)
             {
                 return HttpNotFound();
             }
-            return View(brew);
+
+            CreateBrewViewModel viewModel = new CreateBrewViewModel
+            {
+                Brew = brew,
+                BeerID = brew.BeerID,
+                OriginalWaterType = brew.Variables.WaterType,
+                OriginalFermentableType = brew.Variables.FermentableType
+            };
+
+            return View(viewModel);
         }
 
         // POST: Brews/Edit/5
@@ -138,6 +164,7 @@ namespace Beervolution.Controllers
             waterTypes.Add("Create New");
 
             waterTypes.ForEach(w => waterTypeList.Add(new SelectListItem { Text = w, Value = w }));
+            waterTypeList.Single(w => w.Value == selectedItem).Selected = true;
 
             return Json(new SelectList(waterTypeList, "Value", "Text"));
         }
@@ -154,6 +181,7 @@ namespace Beervolution.Controllers
             fermentableTypes.Add("Create New");
 
             fermentableTypes.ForEach(f => fermentableTypeList.Add(new SelectListItem { Text = f, Value = f }));
+            fermentableTypeList.Single(f => f.Value == selectedItem).Selected = true;
 
             return Json(new SelectList(fermentableTypeList, "Value", "Text"));
         }

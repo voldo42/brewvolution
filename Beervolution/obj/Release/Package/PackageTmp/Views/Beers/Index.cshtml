@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<Beervolution.Models.Beer>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#list').click(function (event) { event.preventDefault(); $('#products .item').addClass('list-group-item'); });
+        $('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
+    });
+</script>
+
 <style>
     .icon-size {
         height: 15%;
@@ -8,6 +15,64 @@
 
     .padding-top {
         padding-top: 20px;
+    }
+
+    .description {
+        line-height: 1.5em;
+        height: 3em;
+        overflow: hidden;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .thumbnail {
+        margin-bottom: 20px;
+        padding: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+
+    .item.list-group-item {
+        float: none;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+
+        .item.list-group-item .list-group-image {
+            margin-right: 10px;
+        }
+
+        .item.list-group-item .thumbnail {
+            margin-bottom: 0px;
+        }
+
+        .item.list-group-item .caption {
+            padding: 9px 9px 0px 9px;
+        }
+
+        .item.list-group-item:nth-of-type(odd) {
+            background: #eeeeee;
+        }
+
+        .item.list-group-item:before, .item.list-group-item:after {
+            display: table;
+            content: " ";
+        }
+
+        .item.list-group-item img {
+            float: left;
+        }
+
+        .item.list-group-item:after {
+            clear: both;
+        }
+
+    .list-group-item-text {
+        margin: 0 0 11px;
     }
 </style>
 
@@ -22,57 +87,52 @@
 </div>
 <br />
 
-@if (Model.Count() > 0)
-{
-    <table class="table padding-top">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Manufacturer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.InclusiveKit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TargetPercentage)
-            </th>
-            <th></th>
-        </tr>
+<div class="container">
+    <div class="well well-sm">
+        <div class="btn-group hidden-xs">
+            <a href="#" id="list" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-th-list">
+                </span>List
+            </a> <a href="#" id="grid" class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-th"></span>Grid
+            </a>
+        </div>
+    </div>
+
+    <div id="products" class="row list-group">
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Manufacturer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @{string isInclusive = item.InclusiveKit ? "Yes" : "No"; }
-                    @isInclusive
-                </td>
-                <td>
-                    %
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
-                </td>
-            </tr>
-                        }
-
-    </table>
+            <div class="item col-md-4">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details","Beers", new { id = item.ID})">
+                        @if (!String.IsNullOrEmpty(@item.ImageUrl))
+                        {
+                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:250px" />
                         }
                         else
                         {
-                        <p>No beers found. Add one to the database.</p>
+                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:250px" />
                         }
+                    </a>
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            @item.Manufacturer.Name -
+                            @item.Name
+                        </h4>
+                        <p class="group inner list-group-item-text description">
+                            @item.Description
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    @item.TargetPercentage %
+                                </p>
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

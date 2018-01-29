@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Beervolution.Models;
+using Beervolution.ViewModels;
 
 namespace Beervolution.Controllers
 {
@@ -44,17 +45,37 @@ namespace Beervolution.Controllers
         // POST: Beers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Manufacturer,Type,InclusiveKit,TargetPercentage")] Beer beer)
+        public ActionResult Create([Bind(Include = "Beer,NewManufacturer,NewType")] CreateBeerViewModel newBeer)
         {
             if (ModelState.IsValid)
             {
-                beer.Brews = new List<Brew>();
-                context.Beers.Add(beer);
+                if (!String.IsNullOrEmpty(newBeer.NewManufacturer))
+                {
+                    Manufacturer manufacturer = new Manufacturer
+                    {
+                        Name = newBeer.NewManufacturer
+                    };
+
+                    context.Manufacturers.Add(manufacturer);
+                    context.SaveChanges();
+
+                    newBeer.Beer.Manufacturer = manufacturer;
+                }
+                else
+                {
+                    Manufacturer manufacturer = context.Manufacturers.Find(newBeer.Beer.ManufacturerID);
+                    newBeer.Beer.Manufacturer = manufacturer;
+                }
+
+                newBeer.Beer.Type = newBeer.Beer.Type == "Create New" ? newBeer.NewType : newBeer.Beer.Type;
+
+                context.Beers.Add(newBeer.Beer);
                 context.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(beer);
+            return View(newBeer);
         }
 
         // GET: Beers/Edit/5
@@ -69,21 +90,51 @@ namespace Beervolution.Controllers
             {
                 return HttpNotFound();
             }
-            return View(beer);
+
+            CreateBeerViewModel viewModel = new CreateBeerViewModel
+            {
+                Beer = beer,
+                OriginalManufacturer = beer.Manufacturer.ID,
+                OriginalBeerType = beer.Type
+            };
+
+            return View(viewModel);
         }
 
         // POST: Beers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Manufacturer,Type,InclusiveKit,TargetPercentage")] Beer beer)
+        public ActionResult Edit([Bind(Include = "Beer,NewManufacturer,OriginalManufacturer,NewType,OriginalBeerType")] CreateBeerViewModel editBeer)
         {
             if (ModelState.IsValid)
             {
-                context.Entry(beer).State = EntityState.Modified;
+                if (!String.IsNullOrEmpty(editBeer.NewManufacturer))
+                {
+                    Manufacturer manufacturer = new Manufacturer
+                    {
+                        Name = editBeer.NewManufacturer
+                    };
+
+                    context.Manufacturers.Add(manufacturer);
+                    context.SaveChanges();
+
+                    editBeer.Beer.Manufacturer = manufacturer;
+                    editBeer.Beer.ManufacturerID = manufacturer.ID;
+                }
+                else
+                {
+                    Manufacturer manufacturer = context.Manufacturers.Find(editBeer.Beer.ManufacturerID);
+                    editBeer.Beer.Manufacturer = manufacturer;
+                    editBeer.Beer.ManufacturerID = manufacturer.ID;
+                }
+
+                editBeer.Beer.Type = editBeer.Beer.Type == "Create New" ? editBeer.NewType : editBeer.Beer.Type;
+
+                context.Entry(editBeer.Beer).State = EntityState.Modified;
                 context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(beer);
+            return View(editBeer);
         }
 
         // GET: Beers/Delete/5
@@ -121,15 +172,57 @@ namespace Beervolution.Controllers
             base.Dispose(disposing);
         }
 
-        public JsonResult GetBeers(int? id)
+        public JsonResult GetBeers()
         {
             List<SelectListItem> beerList = new List<SelectListItem>();
 
             var beers = context.Beers.ToList();
             beers.OrderBy(b => b);
-            beers.ForEach(b => beerList.Add(new SelectListItem { Text = String.Format("{0} ({1})", b.Name, b.Manufacturer), Value = b.ID.ToString() }));
+            beers.ForEach(b => beerList.Add(new SelectListItem { Text = String.Format("{0} ({1})", b.Name, b.Manufacturer.Name), Value = b.ID.ToString() }));
 
             return Json(new SelectList(beerList, "Value", "Text"));
+        }
+
+        public JsonResult GetManufacturers(string selectedItem)
+        {
+            List<SelectListItem> manufacturerList = new List<SelectListItem>();
+            var manufacturers = context.Manufacturers.ToList();
+
+            manufacturers.OrderBy(m => m);
+            manufacturers.Remove(null);
+
+            manufacturers.ForEach(m => manufacturerList.Add(new SelectListItem { Text = m.Name, Value = m.ID.ToString() }));
+
+            if (!String.IsNullOrEmpty(selectedItem))
+            {
+                manufacturerList.Single(m => m.Value == selectedItem).Selected = true;
+            }
+
+            manufacturerList.Add(new SelectListItem { Text = "", Value = "" });
+            manufacturerList.Add(new SelectListItem { Text = "Create New", Value = "0" });
+
+            return Json(new SelectList(manufacturerList, "Value", "Text"));
+        }
+
+        public JsonResult GetBeerTypes(string selectedItem)
+        {
+            List<SelectListItem> beerTypeList = new List<SelectListItem>();
+            var beerTypes = context.Beers.Select(b => b.Type).Distinct().ToList();
+
+            beerTypes.OrderBy(b => b);
+            beerTypes.Remove("");
+            beerTypes.Remove(null);
+            beerTypes.Add("");
+            beerTypes.Add("Create New");
+
+            beerTypes.ForEach(b => beerTypeList.Add(new SelectListItem { Text = b, Value = b }));
+
+            if (!String.IsNullOrEmpty(selectedItem))
+            {
+                beerTypeList.Single(b => b.Value == selectedItem).Selected = true;
+            }
+
+            return Json(new SelectList(beerTypeList, "Value", "Text"));
         }
     }
 }

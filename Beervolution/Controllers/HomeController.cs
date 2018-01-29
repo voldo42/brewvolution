@@ -13,17 +13,6 @@ namespace Beervolution.Controllers
 
         public ActionResult Index()
         {
-            Brew brew = context.Brews.First();
-            brew.Reviews = new List<Review>();
-            Review review = new Review
-            {
-                ID = 1,
-                Comments = "asd",
-                HeadRating = 5,
-                OverallRating = 4,
-                TasteRating = 3
-            };
-            brew.Reviews.Add(review);
             return View();
         }
 

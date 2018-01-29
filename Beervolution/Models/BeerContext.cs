@@ -15,13 +15,17 @@ namespace Beervolution.Models
 
         public DbSet<Beer> Beers { get; set; }
 
-        public DbSet<Variables> Variables { get; set; }
+        public DbSet<Manufacturer> Manufacturers { get; set; }
 
         public DbSet<Brew> Brews { get; set; }
+
+        public DbSet<Variables> Variables { get; set; }       
 
         public DbSet<User> Users { get; set; }
 
         public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<UserComment> Comments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

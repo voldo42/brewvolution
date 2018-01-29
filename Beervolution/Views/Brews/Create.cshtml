@@ -47,7 +47,7 @@
             type: 'POST',
             url: '@Url.Action("GetBeers", "Beers")',
             dataType: 'json',
-            data: { id: null },
+            data: { selectedItem: "" },
             success: function (beers) {
                 // beers contains the JSON formatted list
                 $.each(beers, function (i, beer) {
@@ -65,7 +65,7 @@
             type: 'POST',
             url: '@Url.Action("GetWaterTypes", "Brews")',
             dataType: 'json',
-            data: { selectedItem: null },
+            data: { selectedItem: "" },
             success: function (waterTypes) {
                 // waterTypes contains the JSON formatted list
                 $.each(waterTypes, function (i, waterType) {
@@ -83,7 +83,7 @@
             type: 'POST',
             url: '@Url.Action("GetFermentableTypes", "Brews")',
             dataType: 'json',
-            data: { selectedItem: null },
+            data: { selectedItem: "" },
             success: function (fermentableTypes) {
                 // waterTypes contains the JSON formatted list
                 $.each(fermentableTypes, function (i, fermentableType) {
@@ -132,13 +132,11 @@
                 <div class="form-group">
                     @Html.Label("Beer", htmlAttributes: new { @class = "control-label col-md-3" })
                     <div class="col-md-9">
-                        @Html.DropDownList("BeerID", new SelectList(String.Empty, "Value", "Text"), "Select...", new { @class = "form-control", @data_val = "true", @data_val_required = "The beer field is required." })
+                        @Html.DropDownList("BeerID", new SelectList(String.Empty, "Value", "Text"), "Select...", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.BeerID, "", new { @class = "text-danger" })
                         <div>
-                            <span id="beerIDErrorMessage" class="text-danger field-validation-error" data-valmsg-for="BeerID" data-valmsg-replace="true">
-                                <span for="BeerID" class="">The Beer field is required.</span>
-                            </span>
+                            @Html.ActionLink("Beer not in the list? Create a new beer", "Create", "Beers")
                         </div>
-                        @Html.ActionLink("Beer not in the list? Create a new beer", "Create", "Beers")
                     </div>
                 </div>
 
