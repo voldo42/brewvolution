@@ -15,6 +15,8 @@ namespace Beervolution.Models
 
         public string SID { get; set; }
 
+        public List<Brew> Brews { get; set; }
+
         [Display(Name = "Permission Group")]
         public Group PermissionGroup { get; set; }
 
