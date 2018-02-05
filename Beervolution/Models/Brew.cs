@@ -21,7 +21,7 @@ namespace Beervolution.Models
         public int ID { get; set; }
 
         [ForeignKey("Beer")]
-        [Required (ErrorMessage = "Beer is required")]
+        [Required(ErrorMessage = "Beer is required")]
         public int BeerID { get; set; }
 
         public virtual Beer Beer { get; set; }
@@ -35,7 +35,7 @@ namespace Beervolution.Models
         [Display(Name = "Bottle Date")]
         public DateTime? BottleDate { get; set; }
 
-        [Display(Name="Starting Gravity")]
+        [Display(Name = "Starting Gravity")]
         public double? StartingGravity { get; set; }
 
         [Display(Name = "Final Gravity")]
@@ -49,5 +49,9 @@ namespace Beervolution.Models
         public List<Review> Reviews { get; set; }
 
         public List<UserComment> Comments { get; set; }
+
+        public virtual User CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

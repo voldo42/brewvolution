@@ -69,6 +69,10 @@ namespace Beervolution.Controllers
                 newBrew.Brew.Variables.FermentableType =
                     newBrew.Brew.Variables.FermentableType == "Create New" ? newBrew.NewFermentableType : newBrew.Brew.Variables.FermentableType;
 
+                newBrew.Brew.CreatedDate = DateTime.Now;
+                User jim = context.Users.Find(1);
+                newBrew.Brew.CreatedBy = jim;
+
                 Beer beer = context.Beers.Find(newBrew.BeerID);
                 beer.Brews.Add(newBrew.Brew);
 

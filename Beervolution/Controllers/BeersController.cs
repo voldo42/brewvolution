@@ -81,8 +81,9 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beer beer = context.Beers.Find(id);
-            if (beer == null)
+            Beer beer = context.Beers.Include(b => b.Brews.Select(br => br.Variables)).SingleOrDefault(b => b.ID == id);
+
+           if (beer == null)
             {
                 return HttpNotFound();
             }
