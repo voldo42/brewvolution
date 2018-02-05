@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Beervolution.Models.Beer>
+﻿@model PagedList.IPagedList<Beervolution.Models.Beer>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -9,8 +11,8 @@
 
 <style>
     .icon-size {
-        height: 15%;
-        width: 15%;
+        height: 30%;
+        width: 30%;
     }
 
     .padding-top {
@@ -77,31 +79,47 @@
 </style>
 
 <div class="row padding-top">
-    <div class="col-xs-6">
-        <h2>Beers</h2>
+    <div class="col-xs-9">
+        <h3>Beers</h3>
         @Html.ActionLink("Create New Beer", "Create", null, new { @class = "btn btn-default" })
     </div>
-    <div class="col-xs-6 text-right">
-        <img src="~/Images/beer-icon.png" class="icon-size" />
+    <div class="col-xs-3">
+        <div class="text-right">
+            <img src="~/Images/beer-icon.png" class="icon-size" />
+        </div>
     </div>
 </div>
 
 <div class="container padding-top">
     <div class="well well-sm">
-        <div class="btn-group hidden-xs">
-            <a href="#" id="list" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-th-list">
-                </span>List
-            </a> <a href="#" id="grid" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-th"></span>Grid
-            </a>
+        <div class="row">
+            <div class="col-sm-6 hidden-xs">
+                <div class="btn-group ">
+                    <a href="#" id="list" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-th-list">
+                        </span>List
+                    </a>
+                    <a href="#" id="grid" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-th"></span>Grid
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                @using (Html.BeginForm("Index", "Beers", FormMethod.Get, new { @class = "form-inline text-right" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                        <input type="submit" value="Search" class="btn btn-default" />
+                    </div>
+                }
+            </div>
         </div>
     </div>
 
     <div id="products" class="row list-group">
 
         @foreach (var item in Model)
-        {
+            {
             <div class="item col-md-4">
                 <div class="thumbnail">
                     <a href="@Url.Action("Details","Beers", new { id = item.ID})">
@@ -135,3 +153,8 @@
         }
     </div>
 </div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
