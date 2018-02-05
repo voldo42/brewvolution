@@ -140,3 +140,7 @@ H:\Projects\brewvolution\Beervolution\bin\Microsoft.AI.Web.xml
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.csprojResolveAssemblyReference.cache
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.dll
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.pdb
+H:\Projects\brewvolution\Beervolution\bin\PagedList.dll
+H:\Projects\brewvolution\Beervolution\bin\PagedList.Mvc.dll
+H:\Projects\brewvolution\Beervolution\bin\PagedList.xml
+H:\Projects\brewvolution\Beervolution\bin\PagedList.Mvc.xml
