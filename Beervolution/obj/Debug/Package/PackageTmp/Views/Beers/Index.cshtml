@@ -11,8 +11,8 @@
 
 <style>
     .icon-size {
-        height: 30%;
-        width: 30%;
+        height: 36%;
+        width: 36%;
     }
 
     .padding-top {
@@ -76,21 +76,20 @@
     .list-group-item-text {
         margin: 0 0 11px;
     }
+
+    .margin-left {
+        margin-left: 15px;
+    }
 </style>
 
-<div class="row padding-top">
-    <div class="col-xs-9">
-        <h3>Beers</h3>
+<div class="row padding-top margin-left">
+    <div>
         @Html.ActionLink("Create New Beer", "Create", null, new { @class = "btn btn-default" })
-    </div>
-    <div class="col-xs-3">
-        <div class="text-right">
-            <img src="~/Images/beer-icon.png" class="icon-size" />
-        </div>
     </div>
 </div>
 
 <div class="container padding-top">
+    
     <div class="well well-sm">
         <div class="row">
             <div class="col-sm-6 hidden-xs">
