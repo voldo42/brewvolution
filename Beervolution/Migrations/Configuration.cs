@@ -10,7 +10,7 @@ namespace Beervolution.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+            AutomaticMigrationDataLossAllowed = false;
             ContextKey = "Beervolution.Models.BeerContext";
         }
 

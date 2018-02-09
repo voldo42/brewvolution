@@ -1,0 +1,160 @@
+﻿@model PagedList.IPagedList<Beervolution.Models.Beer>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#list').click(function (event) { event.preventDefault(); $('#products .item').addClass('list-group-item'); });
+        $('#grid').click(function (event) { event.preventDefault(); $('#products .item').removeClass('list-group-item'); $('#products .item').addClass('grid-group-item'); });
+    });
+</script>
+
+<style>
+    .icon-size {
+        height: 30%;
+        width: 30%;
+    }
+
+    .padding-top {
+        padding-top: 20px;
+    }
+
+    .description {
+        line-height: 1.5em;
+        height: 3em;
+        overflow: hidden;
+    }
+
+    .glyphicon {
+        margin-right: 5px;
+    }
+
+    .thumbnail {
+        margin-bottom: 20px;
+        padding: 0px;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+
+    .item.list-group-item {
+        float: none;
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+
+        .item.list-group-item .list-group-image {
+            margin-right: 10px;
+        }
+
+        .item.list-group-item .thumbnail {
+            margin-bottom: 0px;
+        }
+
+        .item.list-group-item .caption {
+            padding: 9px 9px 0px 9px;
+        }
+
+        .item.list-group-item:nth-of-type(odd) {
+            background: #eeeeee;
+        }
+
+        .item.list-group-item:before, .item.list-group-item:after {
+            display: table;
+            content: " ";
+        }
+
+        .item.list-group-item img {
+            float: left;
+        }
+
+        .item.list-group-item:after {
+            clear: both;
+        }
+
+    .list-group-item-text {
+        margin: 0 0 11px;
+    }
+</style>
+
+<div class="row padding-top">
+    <div class="col-xs-9">
+        <h3>Beers</h3>
+        @Html.ActionLink("Create New Beer", "Create", null, new { @class = "btn btn-default" })
+    </div>
+    <div class="col-xs-3">
+        <div class="text-right">
+            <img src="~/Images/beer-icon.png" class="icon-size" />
+        </div>
+    </div>
+</div>
+
+<div class="container padding-top">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-sm-6 hidden-xs">
+                <div class="btn-group ">
+                    <a href="#" id="list" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-th-list">
+                        </span>List
+                    </a>
+                    <a href="#" id="grid" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-th"></span>Grid
+                    </a>
+                </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                @using (Html.BeginForm("Index", "Beers", FormMethod.Get, new { @class = "form-inline text-right" }))
+                {
+                    <div class="form-group">
+                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                        <input type="submit" value="Search" class="btn btn-default" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div id="products" class="row list-group">
+
+        @foreach (var item in Model)
+            {
+            <div class="item col-md-4">
+                <div class="thumbnail">
+                    <a href="@Url.Action("Details","Beers", new { id = item.ID})">
+                        @if (!String.IsNullOrEmpty(@item.ImageUrl))
+                        {
+                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:250px" />
+                        }
+                        else
+                        {
+                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:250px" />
+                        }
+                    </a>
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            @item.Manufacturer.Name -
+                            @item.Name
+                        </h4>
+                        <p class="group inner list-group-item-text description">
+                            @item.Description
+                        </p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p class="lead">
+                                    @item.TargetPercentage %
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
