@@ -64,7 +64,7 @@ namespace Beervolution.Controllers
                     beers = beers.OrderByDescending(b => b.TargetPercentage);
                     break;
                 default:
-                    beers = beers.OrderByDescending(b => b.Name);
+                    beers = beers.OrderBy(b => b.Name);
                     break;
             }
 
