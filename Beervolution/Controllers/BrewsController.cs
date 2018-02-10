@@ -77,7 +77,7 @@ namespace Beervolution.Controllers
                 beer.Brews.Add(newBrew.Brew);
 
                 context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Beers", new { id = beer.ID });
             }
 
             return View(newBrew);
