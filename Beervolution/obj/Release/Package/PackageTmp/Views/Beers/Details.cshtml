@@ -1,19 +1,24 @@
 ﻿@model Beervolution.Models.Beer
 
 <style>
-    .icon-size {
-        height: 15%;
-        width: 15%;
-    }
 
     .padding-top {
         padding-top: 20px;
     }
+
+    .padding-right {
+        padding-right: 5px;
+    }
+
+    body-content {
+        font-size: 18px;
+    }
+
 </style>
 
 <h2>@Model.Manufacturer.Name - @Model.Name</h2>
 
-<div class="padding-top">
+<div>
     <div class="row">
         <div class="col-md-8">
             <h3>Description</h3>
@@ -82,18 +87,136 @@
         </div>
     </div>
 </div>
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <h4>Have you made this beer?</h4>
-        @Html.ActionLink("Create a Brew with this Beer", "Create", "Brews", new { beerID = Model.ID }, new { @class = "btn btn-default" })
-    </div>
-    <div class="col-md-6 text-right">
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+
+<div class="padding-top">
+    <div style="float:left" class="padding-right"><h4>Have you made this beer?</h4></div>
+    <div style="float:left">@Html.ActionLink("Create a Brew with this Beer", "Create", "Brews", new { beerID = Model.ID }, new { @class = "btn btn-default" })</div>
+    <div style="float:right">
         @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-default" })
     </div>
+    <div style="float:right" class="padding-right">
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })
+    </div>
 </div>
+<br />
+<hr />
 
+<div class="padding-top">
 
+    @foreach (var brew in Model.Brews)
+    {
+        <div class="panel panel-default">
+            @{ string createdDate = @brew.CreatedDate != null ? brew.CreatedDate.ToShortDateString() : ""; }
+            <div class="panel-heading">Brew by @brew.CreatedBy.Name - @createdDate</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                Start Date
+                            </dt>
 
+                            <dd>
+                                @{ string startDate = @brew.StartDate != null ? brew.StartDate.ToShortDateString() : ""; }
+                                @startDate
+                            </dd>
 
+                            <dt>
+                                Bottle Date
+                            </dt>
+
+                            <dd>
+                                @{ string bottleDate = @brew.BottleDate != null ? Convert.ToDateTime(brew.BottleDate).ToShortDateString() : ""; }
+                                @bottleDate
+                            </dd>
+
+                            <dt>
+                                Description
+                            </dt>
+
+                            <dd>
+                                @brew.Description
+                            </dd>
+
+                            <dt>
+                                Starting Gravity
+                            </dt>
+
+                            <dd>
+                                @brew.StartingGravity
+                            </dd>
+
+                            <dt>
+                                Final Gravity
+                            </dt>
+
+                            <dd>
+                                @brew.FinalGravity
+                            </dd>
+
+                            <dt>
+                                Secondary Fermentation
+                            </dt>
+
+                            <dd>
+                                @brew.SecondaryFermentation
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-8">
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                Water Type
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.WaterType
+                            </dd>
+
+                            <dt>
+                                Fermentable Type
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.FermentableType
+                            </dd>
+
+                            <dt>
+                                Fermentable Amount
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.FermentableAmount KG
+                            </dd>
+
+                            <dt>
+                                Total Volume
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.TotalVolume L
+                            </dd>
+
+                            <dt>
+                                Brew Temperature
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.BrewTemp &deg;C
+                            </dd>
+
+                            <dt>
+                                Hop Details
+                            </dt>
+
+                            <dd>
+                                @brew.Variables.HopDetails
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+</div>

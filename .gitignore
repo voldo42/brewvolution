@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Beervolution/App_Data/Beervolution.mdf
+/Beervolution/App_Data/Beervolution_log.ldf

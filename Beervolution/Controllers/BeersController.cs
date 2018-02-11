@@ -6,8 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+
+using PagedList;
+
 using Beervolution.Models;
 using Beervolution.ViewModels;
+using System.Configuration;
 
 namespace Beervolution.Controllers
 {
@@ -16,9 +20,58 @@ namespace Beervolution.Controllers
         private BeerContext context = new BeerContext();
 
         // GET: Beers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            return View(context.Beers.ToList());
+            // Set sorting parameters
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = String.IsNullOrEmpty(sortOrder) ? "NameDesc" : "";
+            ViewBag.DateSortParam = sortOrder == "Date" ? "DateDesc" : "Date";
+            ViewBag.PercentageSortParam = sortOrder == "Percentage" ? "PercentageDesc" : "Percentage";
+
+            // Set search string from criteria
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            // Query for beers
+            var beers = from b in context.Beers
+                           select b;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                beers = beers.Where(b => b.Name.Contains(searchString)
+                                       || b.Manufacturer.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "Name":
+                    beers = beers.OrderBy(b => b.Name);
+                    break;
+                case "NameDesc":
+                    beers = beers.OrderByDescending(b => b.Name);
+                    break;
+                case "Percentage":
+                    beers = beers.OrderBy(b => b.TargetPercentage);
+                    break;
+                case "PercentageDesc":
+                    beers = beers.OrderByDescending(b => b.TargetPercentage);
+                    break;
+                default:
+                    beers = beers.OrderBy(b => b.Name);
+                    break;
+            }
+
+            int pageSize = Int32.Parse(ConfigurationManager.AppSettings["Beers Page Size"]);
+            int pageNumber = (page ?? 1);
+
+            return View(beers.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Beers/Details/5
@@ -28,8 +81,9 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beer beer = context.Beers.Find(id);
-            if (beer == null)
+            Beer beer = context.Beers.Include(b => b.Brews.Select(br => br.Variables)).SingleOrDefault(b => b.ID == id);
+
+           if (beer == null)
             {
                 return HttpNotFound();
             }
