@@ -359,9 +359,11 @@
     <None Include="Properties\PublishProfiles\Beervolution - Web Deploy.pubxml">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Images\background-image.jpg" />
     <Content Include="Images\barrel-delete-icon.png" />
     <Content Include="Images\beer-delete-icon.png" />
-    <Content Include="Images\home-image.jpg" />
+    <Content Include="Images\four-beers-image.png" />
+    <Content Include="Images\logo-main.png" />
     <Content Include="Images\no-image.jpg" />
     <Content Include="Images\user-icon.png" />
     <Content Include="Images\barrel-icon.png" />
