@@ -31,11 +31,14 @@ namespace Beervolution.Controllers
 
         public void ResetPassword()
         {
-            if (Request.IsAuthenticated)
-            {
-                HttpContext.GetOwinContext().Authentication.Challenge(
-                    new AuthenticationProperties() { RedirectUri = "/" }, Startup.PasswordPolicyId);
-            }
+            // Let the middleware know you are trying to use the reset password policy (see OnRedirectToIdentityProvider in Startup.Auth.cs)
+            HttpContext.GetOwinContext().Set("Policy", Startup.PasswordPolicyId);
+
+            // Set the page to redirect to after changing passwords
+            var authenticationProperties = new AuthenticationProperties { RedirectUri = "/" };
+            HttpContext.GetOwinContext().Authentication.Challenge(authenticationProperties);
+
+            return;
         }
 
         public void SignOut()
