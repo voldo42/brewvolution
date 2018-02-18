@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using Beervolution.Models;
 using System.Threading;
 using System.Globalization;
+using System.Security.Claims;
+
 using Beervolution.ViewModels;
 
 namespace Beervolution.Controllers
@@ -69,9 +71,9 @@ namespace Beervolution.Controllers
                 newBrew.Brew.Variables.FermentableType =
                     newBrew.Brew.Variables.FermentableType == "Create New" ? newBrew.NewFermentableType : newBrew.Brew.Variables.FermentableType;
 
-                newBrew.Brew.CreatedDate = DateTime.Now;
-                User jim = context.Users.Find(1);
-                newBrew.Brew.CreatedBy = jim;
+                string sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
+                currentUser.Brews.Add(newBrew.Brew);
 
                 Beer beer = context.Beers.Find(newBrew.BeerID);
                 beer.Brews.Add(newBrew.Brew);

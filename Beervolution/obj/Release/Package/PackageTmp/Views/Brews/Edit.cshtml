@@ -140,10 +140,7 @@
                     <div class="col-md-9">
                         @Html.DropDownList("BeerID", new SelectList(String.Empty, "Value", "Text"), "Select...", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.BeerID, "", new { @class = "text-danger" })
-                        @Html.HiddenFor(model => model.Brew.Beer.ID)
-                        <div>
-                            @Html.ActionLink("Beer not in the list? Create a new beer", "Create", "Beers")
-                        </div>
+                        @Html.HiddenFor(model => model.Brew.BeerID)
                     </div>
                 </div>
 

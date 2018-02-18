@@ -72,6 +72,8 @@
                     $("#BeerID").append('<option value="' + beer.Value + '">' +
                         beer.Text + '</option>');
                 });
+
+                $('#BeerID').val(@Model.BeerID);
             },
             error: function (ex) {
                 console.log('Failed to retrieve beers.' + ex);
@@ -156,9 +158,6 @@
                     <div class="col-md-9">
                         @Html.DropDownList("BeerID", new SelectList(String.Empty, "Value", "Text"), "Select...", new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.BeerID, "", new { @class = "text-danger" })
-                        <div>
-                            @Html.ActionLink("Beer not in the list? Create a new beer", "Create", "Beers")
-                        </div>
                     </div>
                 </div>
 

@@ -15,6 +15,36 @@ namespace Beervolution.Controllers
 
         public ActionResult Index()
         {
+            string sid = "";
+            string displayName = "";
+
+            List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+            if (claims.Count > 0)
+            {
+                sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType).Value;
+            }
+            User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
+
+            if (currentUser == null)
+            {
+                currentUser = new User
+                {
+                    SID = sid,
+                    Name = displayName,
+                    PermissionGroup = Models.User.Group.Reviewer,
+                    CreatedDate = DateTime.Now
+                };
+                context.Users.Add(currentUser);
+                context.SaveChanges();
+            }
+            else if (currentUser.Name != displayName)
+            {
+                currentUser.Name = displayName;
+                context.SaveChanges();
+            }
+
+
             return View();
         }
 

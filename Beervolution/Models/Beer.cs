@@ -46,5 +46,9 @@ namespace Beervolution.Models
         public List<Brew> Brews { get; set; }
 
         public List<UserComment> Comments { get; set; }
+
+        public virtual User CreatedBy { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }
