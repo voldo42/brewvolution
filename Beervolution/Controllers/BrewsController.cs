@@ -40,21 +40,21 @@ namespace Beervolution.Controllers
         }
 
         // GET: Brews/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // GET: Brews/Create/5
-        //public ActionResult Create(int beerID)
-        //{
-        //        CreateBrewViewModel viewModel = new CreateBrewViewModel
-        //        {
-        //            BeerID = beerID
-        //        };
+        public ActionResult Create(int beerID)
+        {
+            CreateBrewViewModel viewModel = new CreateBrewViewModel
+            {
+                BeerID = beerID
+            };
 
-        //    return View(viewModel);
-        //}
+            return View(viewModel);
+        }
 
         // POST: Brews/Create
         [HttpPost]
