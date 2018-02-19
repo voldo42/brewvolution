@@ -36,22 +36,17 @@
             <h2>Welcome @User.Identity.Name</h2>
             <br />
             <div class="row">
-                <div class="col-md-6">
-                    
+                <div class="col-md-6">             
                         Brews: <br />
                         Comments: <br />
-                        Member Since:
-                    
+                        Member Since:                  
                 </div>
                 <div class="col-md-6">
-                    
-                        2<br />
-                        0<br />
-                        12/02/18
-                    
+                        @ViewBag.NoOfBrews<br />
+                        @ViewBag.NoOfComments<br />
+                        @ViewBag.MemberSince
                 </div>
             </div>
-
         }
         else
         {

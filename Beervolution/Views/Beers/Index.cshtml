@@ -10,15 +10,7 @@
 </script>
 
 <style>
-    .icon-size {
-        height: 36%;
-        width: 36%;
-    }
-
-    .padding-top {
-        padding-top: 20px;
-    }
-
+    
     .description {
         line-height: 1.5em;
         height: 3em;
@@ -77,65 +69,63 @@
         margin: 0 0 11px;
     }
 
-    .margin-left {
+</style>
+
+<style>
+    body {
+        background-size: auto;
+        background-image: url("../../Images/background-image.jpg");
+        background-color: #cccccc;
+    }
+
+    .margins {
         margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .padding-top {
+        padding-top: 20px;
     }
 </style>
 
-<div class="row padding-top margin-left">
-    <div>
-        @Html.ActionLink("Create New Beer", "Create", null, new { @class = "btn btn-default" })
-    </div>
-</div>
-
-<div class="container padding-top">
-    
-    <div class="well well-sm">
-        <div class="row">
-            <div class="col-sm-6 hidden-xs">
-                <div class="btn-group ">
-                    <a href="#" id="list" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-th-list">
-                        </span>List
-                    </a>
-                    <a href="#" id="grid" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-th"></span>Grid
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-6 col-xs-12">
-                @using (Html.BeginForm("Index", "Beers", FormMethod.Get, new { @class = "form-inline text-right" }))
-                {
-                    <div class="form-group">
-                        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
-                        <input type="submit" value="Search" class="btn btn-default" />
-                    </div>
-                }
-            </div>
+<div class="panel">
+    <div class="row padding-top margins">
+        <div>
+            @Html.ActionLink("Create New Beer", "Create", null, new { @class = "btn btn-default" })
         </div>
     </div>
+    <br />
+    <div class="well well-sm">
+        @using (Html.BeginForm("Index", "Beers", FormMethod.Get, new { @class = "form-inline text-right" }))
+            {
+            <div class="form-group">
+                @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { @class = "form-control" })
+                <input type="submit" value="Search" class="btn btn-default" />
+            </div>
+        }
+    </div>
 
-    <div id="products" class="row list-group">
+    <div id="products" class="row list-group margins">
 
         @foreach (var item in Model)
             {
-            <div class="item col-md-4">
+            <div class="item col-md-3">
                 <div class="thumbnail">
                     <a href="@Url.Action("Details","Beers", new { id = item.ID})">
                         @if (!String.IsNullOrEmpty(@item.ImageUrl))
                         {
-                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:250px" />
+                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:180px" />
                         }
                         else
                         {
-                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:250px" />
+                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:180px" />
                         }
                     </a>
                     <div class="caption">
-                        <h4 class="group inner list-group-item-heading">
+                        <h5 class="group inner list-group-item-heading">
                             @item.Manufacturer.Name -
                             @item.Name
-                        </h4>
+                        </h5>
                         <p class="group inner list-group-item-text description">
                             @item.Description
                         </p>
@@ -151,9 +141,11 @@
             </div>
         }
     </div>
+    <div class="margins">
+        <div>
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
 </div>
-
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-@Html.PagedListPager(Model, page => Url.Action("Index",
-new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

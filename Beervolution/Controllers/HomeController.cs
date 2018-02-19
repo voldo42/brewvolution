@@ -23,27 +23,31 @@ namespace Beervolution.Controllers
             {
                 sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
                 displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType).Value;
-            }
-            User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
 
-            if (currentUser == null)
-            {
-                currentUser = new User
+                User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
+
+                if (currentUser == null)
                 {
-                    SID = sid,
-                    Name = displayName,
-                    PermissionGroup = Models.User.Group.Reviewer,
-                    CreatedDate = DateTime.Now
-                };
-                context.Users.Add(currentUser);
-                context.SaveChanges();
-            }
-            else if (currentUser.Name != displayName)
-            {
-                currentUser.Name = displayName;
-                context.SaveChanges();
-            }
+                    currentUser = new User
+                    {
+                        SID = sid,
+                        Name = displayName,
+                        PermissionGroup = Models.User.Group.Reviewer,
+                        CreatedDate = DateTime.Now
+                    };
+                    context.Users.Add(currentUser);
+                    context.SaveChanges();
+                }
+                else if (currentUser.Name != displayName)
+                {
+                    currentUser.Name = displayName;
+                    context.SaveChanges();
+                }
 
+                ViewBag.NoOfBrews = currentUser.Brews.Count();
+                ViewBag.NoOfComments = 0;
+                ViewBag.MemberSince = currentUser.CreatedDate.ToShortDateString();
+            }
 
             return View();
         }
