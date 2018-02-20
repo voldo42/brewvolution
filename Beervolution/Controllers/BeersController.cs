@@ -218,7 +218,8 @@ namespace Beervolution.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Beer beer = context.Beers.Find(id);
-            context.Beers.Remove(beer);
+            beer.Deleted = true;
+            context.Entry(beer).State = EntityState.Modified;
             context.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -10,15 +10,7 @@
 </script>
 
 <style>
-    .icon-size {
-        height: 36%;
-        width: 36%;
-    }
-
-    .padding-top {
-        padding-top: 20px;
-    }
-
+    
     .description {
         line-height: 1.5em;
         height: 3em;
@@ -77,11 +69,6 @@
         margin: 0 0 11px;
     }
 
-    .margins {
-        margin-left: 15px;
-        margin-right: 15px;
-    }
-
 </style>
 
 <style>
@@ -89,6 +76,15 @@
         background-size: auto;
         background-image: url("../../Images/background-image.jpg");
         background-color: #cccccc;
+    }
+
+    .margins {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .padding-top {
+        padding-top: 20px;
     }
 </style>
 
@@ -118,18 +114,18 @@
                     <a href="@Url.Action("Details","Beers", new { id = item.ID})">
                         @if (!String.IsNullOrEmpty(@item.ImageUrl))
                         {
-                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:200px" />
+                            <img class="group list-group-image" src="@item.ImageUrl" style="width:400px; height:180px" />
                         }
                         else
                         {
-                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:200px" />
+                            <img class="group list-group-image" src="~/Images/no-image.jpg" style="width:400px; height:180px" />
                         }
                     </a>
                     <div class="caption">
-                        <h4 class="group inner list-group-item-heading">
+                        <h5 class="group inner list-group-item-heading">
                             @item.Manufacturer.Name -
                             @item.Name
-                        </h4>
+                        </h5>
                         <p class="group inner list-group-item-text description">
                             @item.Description
                         </p>

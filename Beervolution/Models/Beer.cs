@@ -50,5 +50,7 @@ namespace Beervolution.Models
         public virtual User CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        public bool Deleted { get; set; }
     }
 }
