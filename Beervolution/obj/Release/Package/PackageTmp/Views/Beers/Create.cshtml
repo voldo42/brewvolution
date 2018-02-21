@@ -191,13 +191,11 @@
 
                 <div class="form-group">
                     @Html.LabelFor(model => model.Beer.InclusiveKit, htmlAttributes: new { @class = "control-label col-md-3" })
-                    <div class="col-md-3">
+                    <div class="col-md-9">
                         <div class="form-control-static">
                             @Html.EditorFor(model => model.Beer.InclusiveKit)
                             @Html.ValidationMessageFor(model => model.Beer.InclusiveKit, "", new { @class = "text-danger" })
                         </div>
-                    </div>
-                    <div class="col-md-6">
                     </div>
                 </div>
             </div>
