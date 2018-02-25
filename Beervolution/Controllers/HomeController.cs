@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,24 +17,26 @@ namespace Beervolution.Controllers
 
         public ActionResult Index()
         {
-            string sid = "";
+            string oid = "";
             string displayName = "";
+            string newOID = "";
 
             List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
+
             if (claims.Count > 0)
             {
-                sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                oid = claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                 displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType).Value;
+                newOID = ((ClaimsIdentity)User.Identity).FindFirst("objectId").Value;
 
-                User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
+                User currentUser = context.Users.Include(b => b.Brews).FirstOrDefault(u => u.OID == oid);
 
                 if (currentUser == null)
                 {
                     currentUser = new User
                     {
-                        SID = sid,
+                        OID = oid,
                         Name = displayName,
-                        PermissionGroup = Models.User.Group.Reviewer,
                         CreatedDate = DateTime.Now
                     };
                     context.Users.Add(currentUser);

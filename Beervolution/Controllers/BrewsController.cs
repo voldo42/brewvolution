@@ -72,7 +72,7 @@ namespace Beervolution.Controllers
                     newBrew.Brew.Variables.FermentableType == "Create New" ? newBrew.NewFermentableType : newBrew.Brew.Variables.FermentableType;
 
                 string sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                User currentUser = context.Users.FirstOrDefault(u => u.SID == sid);
+                User currentUser = context.Users.FirstOrDefault(u => u.OID == sid);
                 currentUser.Brews.Add(newBrew.Brew);
 
                 Beer beer = context.Beers.Find(newBrew.BeerID);

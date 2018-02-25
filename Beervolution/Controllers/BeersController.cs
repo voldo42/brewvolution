@@ -6,13 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Configuration;
+using System.Security.Claims;
 
 using PagedList;
 
 using Beervolution.Models;
 using Beervolution.ViewModels;
-using System.Configuration;
-using System.Security.Claims;
 
 namespace Beervolution.Controllers
 {
@@ -126,7 +126,7 @@ namespace Beervolution.Controllers
 
                 string sid = ClaimsPrincipal.Current.Identities.First().Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
                 newBeer.Beer.CreatedDate = DateTime.Now;
-                User currentUser = context.Users.First(u => u.SID == sid);
+                User currentUser = context.Users.First(u => u.OID == sid);
                 currentUser.Beers.Add(newBeer.Beer);
 
                 context.Beers.Add(newBeer.Beer);

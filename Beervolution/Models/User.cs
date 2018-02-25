@@ -18,21 +18,12 @@ namespace Beervolution.Models
 
         public string Name { get; set; }
 
-        public string SID { get; set; }
+        public string OID { get; set; }
 
         public List<Beer> Beers { get; set; }
 
         public List<Brew> Brews { get; set; }
 
         public DateTime CreatedDate { get; set; }
-
-        [Display(Name = "Permission Group")]
-        public Group PermissionGroup { get; set; }
-
-        public enum Group
-        {
-            Admin,
-            Reviewer
-        };
     }
 }

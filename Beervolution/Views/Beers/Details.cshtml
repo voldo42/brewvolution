@@ -113,9 +113,7 @@
 
                         @{ string createdDate = @brew.CreatedDate != null ? brew.CreatedDate.ToShortDateString() : ""; }
                         <div data-toggle="collapse" data-parent="#accordion" href="@href">
-                            <div style="float:left">Brew by @brew.CreatedBy.Name - @createdDate</div>
-                            <div style="float:right">@Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-default" })</div>
-                            <div style="float:right" class="padding-right">@Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })</div>
+                            <div>Brew by @brew.CreatedBy.Name - @createdDate</div>
                         </div>
                     </div>
 
@@ -227,6 +225,13 @@
                                         </dd>
                                     </dl>
                                 </div>
+                                @if (Request.IsAuthenticated)
+                                {
+                                    <div class="row">
+                                        <div style="float:right">@Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-default" })</div>
+                                        <div style="float:right" class="padding-right">@Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-default" })</div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     </div>
