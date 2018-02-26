@@ -41,6 +41,12 @@ namespace Beervolution
             bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(
                   "~/Content/bootstrap-datetimepicker.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/rating").Include(
+                        "~/Scripts/rating.js"));
+
+            bundles.Add(new StyleBundle("~/Content/rating").Include(
+                  "~/Content/rating.css"));
+
         }
     }
 }

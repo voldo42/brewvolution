@@ -82,7 +82,7 @@ namespace Beervolution.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Beer beer = context.Beers.Include(b => b.Brews.Select(br => br.Variables)).SingleOrDefault(b => b.ID == id);
+            Beer beer = context.Beers.Include(b => b.Brews.Select(br => br.Variables)).Include(b => b.Brews.Select(br => br.Reviews)).SingleOrDefault(b => b.ID == id);
 
            if (beer == null)
             {

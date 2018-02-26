@@ -112,14 +112,30 @@
                         @{ string href = "#collapse" + brew.ID; }
 
                         @{ string createdDate = @brew.CreatedDate != null ? brew.CreatedDate.ToShortDateString() : ""; }
-                        <div data-toggle="collapse" data-parent="#accordion" href="@href">
-                            <div>Brew by @brew.CreatedBy.Name - @createdDate</div>
-                        </div>
+                            <div class="row margins">
+                                <div class="col-md-10" data-toggle="collapse" data-parent="#accordion" href="@href" style="float:left">Brew by @brew.CreatedBy.Name - @createdDate</div>
+                                <div id="rating" class="col-md-2" style="float:right">
+                                    @if (brew.Reviews.Count > 0)
+                                    {
+                                        <div class="stars" style="float:right">
+                                            <div class="star fullStar"></div>
+                                            <div class="star fullStar"></div>
+                                            <div class="star fullStar"></div>
+                                            <div class="star fullStar"></div>
+                                            <div class="star tmp_es"></div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Review", "Review", "Brews", new { brewID = brew.ID }, new { @class = "text-right", @style = "float:right" })
+                                    }
+                                </div>
+                            </div>
                     </div>
 
                     <div id="@id" class="panel-collapse collapse">
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row margins">
                                 <div class="col-xs-4">
                                     <dl class="dl-horizontal">
                                         <dt>
@@ -239,5 +255,4 @@
             }
         </div>
     </div>
-
 </div>
