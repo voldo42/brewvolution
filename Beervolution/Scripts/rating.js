@@ -85,9 +85,9 @@
             stars.bind('mouseenter', function(e){
                 // add tmp class when mouse enter
                 $(this)
-                    .addClass('fullStar')
+                    .addClass('tmp_fs')
                     .prevAll()
-                    .addClass('fullStar');
+                    .addClass('tmp_fs');
                 
                 $(this).nextAll()
                     .addClass('tmp_es');

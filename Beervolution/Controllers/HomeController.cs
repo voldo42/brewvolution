@@ -19,7 +19,6 @@ namespace Beervolution.Controllers
         {
             string oid = "";
             string displayName = "";
-            string newOID = "";
 
             List<Claim> claims = ClaimsPrincipal.Current.Identities.First().Claims.ToList();
 
@@ -27,7 +26,6 @@ namespace Beervolution.Controllers
             {
                 oid = claims.FirstOrDefault(c => c.Type == "http://schemas.microsoft.com/identity/claims/objectidentifier").Value;
                 displayName = ClaimsPrincipal.Current.FindFirst(ClaimsPrincipal.Current.Identities.First().NameClaimType).Value;
-                newOID = ((ClaimsIdentity)User.Identity).FindFirst("objectId").Value;
 
                 User currentUser = context.Users.Include(b => b.Brews).FirstOrDefault(u => u.OID == oid);
 

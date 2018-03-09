@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -8,15 +9,29 @@ namespace Beervolution.Models
 {
     public class Review
     {
+        public Review() { }
+
+        public Review(int brewID)
+        {
+            BrewID = brewID;
+        }
+
         [Key]
         public int ID { get; set; }
 
-        [Display(Name = "Taste Rating")]
+        [Required]
+        [Display(Name = "Taste")]
         public int TasteRating { get; set; }
 
-        [Display(Name = "Head Rating")]
+        [Required]
+        [Display(Name = "Head Retention")]
         public int HeadRating { get; set; }
 
+        [Required]
+        [Display(Name = "Clarity")]
+        public int ClarityRating { get; set; }
+
+        [Required]
         [Display(Name = "Overall Rating")]
         public int OverallRating { get; set; }
 
@@ -25,5 +40,10 @@ namespace Beervolution.Models
         public User CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }
+
+        [ForeignKey("Brew")]
+        public int BrewID { get; set; }
+
+        public virtual Brew Brew { get; set; }
     }
 }

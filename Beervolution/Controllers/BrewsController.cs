@@ -41,12 +41,6 @@ namespace Beervolution.Controllers
             return View(brew);
         }
 
-        // GET: Brews/Create
-        //public ActionResult Create()
-        //{
-        //    return View();
-        //}
-
         // GET: Brews/Create/5
         public ActionResult Create(int beerID)
         {

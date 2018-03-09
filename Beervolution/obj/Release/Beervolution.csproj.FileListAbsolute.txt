@@ -166,3 +166,4 @@ H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.dll
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.pdb
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.csprojResolveAssemblyReference.cache
 H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.csproj.CoreCompileInputs.cache
+H:\Projects\brewvolution\Beervolution\obj\Release\Beervolution.csproj.CopyComplete

@@ -1,0 +1,58 @@
+﻿@model Beervolution.Models.Review
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Review</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TasteRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TasteRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HeadRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HeadRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OverallRating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OverallRating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comments)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comments)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

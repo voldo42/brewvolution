@@ -235,5 +235,6 @@ H:\Projects\brewvolution\Beervolution\bin\Microsoft.AI.WindowsServer.xml
 H:\Projects\brewvolution\Beervolution\bin\Microsoft.AI.Web.xml
 H:\Projects\brewvolution\Beervolution\obj\Debug\Beervolution.csprojResolveAssemblyReference.cache
 H:\Projects\brewvolution\Beervolution\obj\Debug\Beervolution.csproj.CoreCompileInputs.cache
+H:\Projects\brewvolution\Beervolution\obj\Debug\Beervolution.csproj.CopyComplete
 H:\Projects\brewvolution\Beervolution\obj\Debug\Beervolution.dll
 H:\Projects\brewvolution\Beervolution\obj\Debug\Beervolution.pdb
