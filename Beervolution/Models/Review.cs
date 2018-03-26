@@ -20,18 +20,20 @@ namespace Beervolution.Models
         public int ID { get; set; }
 
         [Required]
+        [Range(1, 5)]
         [Display(Name = "Taste")]
         public int TasteRating { get; set; }
 
         [Required]
+        [Range(1, 5)]
         [Display(Name = "Head Retention")]
         public int HeadRating { get; set; }
 
         [Required]
+        [Range(1, 5)]
         [Display(Name = "Clarity")]
         public int ClarityRating { get; set; }
 
-        [Required]
         [Display(Name = "Overall Rating")]
         public int OverallRating { get; set; }
 

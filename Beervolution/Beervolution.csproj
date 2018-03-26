@@ -224,6 +224,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\fontawesome-stars.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\rating.css" />
@@ -395,6 +396,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.barrating.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -521,10 +523,10 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
-    <Content Include="Views\Beers\_CreateReview.cshtml" />
+    <Content Include="Views\Reviews\_Create.cshtml" />
     <Content Include="Views\Reviews\Delete.cshtml" />
     <Content Include="Views\Reviews\Details.cshtml" />
-    <Content Include="Views\Beers\_EditReview.cshtml" />
+    <Content Include="Views\Reviews\_Edit.cshtml" />
     <Content Include="Views\Reviews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

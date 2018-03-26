@@ -47,6 +47,12 @@ namespace Beervolution
             bundles.Add(new StyleBundle("~/Content/rating").Include(
                   "~/Content/rating.css"));
 
+            bundles.Add(new ScriptBundle("~/bundles/barrating").Include(
+                        "~/Scripts/jquery.barrating.js"));
+
+            bundles.Add(new StyleBundle("~/Content/stars").Include(
+                  "~/Content/fontawesome-stars.css"));
+
         }
     }
 }

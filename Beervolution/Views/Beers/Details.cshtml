@@ -1,5 +1,7 @@
 ﻿@model Beervolution.Models.Beer
 
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
 <style>
     body {
         background-size: auto;
@@ -26,10 +28,17 @@
 </style>
 
 <script>
-    $(function () {
-        $('#taste-rating').rating(function (vote, event) {
-            alert(vote);
-            $('#TasteRating').val(vote);
+    $("#review-link").on("click", function () {
+
+        alert("clicked");
+
+        $.ajax({
+            type: "GET",
+            url: "/Reviews/Create",
+            success: function (data) {
+                $("#create-modal-body").html(data); // #temp is the empty div
+                $("#createModal").modal("show"); // myModal is the root div id of the html result
+            }
         });
     });
 </script>
@@ -128,8 +137,7 @@
                                 {
                                     string modalID = "modal" + brew.ID;
                                     string modalIDHash = "#" + modalID;
-                                    <a class="text-right" style="float:right" data-toggle="modal" data-target="@modalIDHash">Edit</a>
-                                    <a class="text-right" style="float:right" data-toggle="modal" data-target="@modalIDHash">
+                                    <a class="text-right" style="float:right" data-toggle="modal" data-target="editModal">
                                         <div class="stars" style="float:right">
                                             @if (brew.Reviews.First().OverallRating == 1)
                                             {
@@ -153,48 +161,6 @@
                                             }
                                         </div>
                                     </a>
-
-                                    <div class="modal fade" id="@modalID" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header row">
-                                                    <div class="modal-title col-md-10" id="modalLongTitle"><b>How did your beer turn out?</b></div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-body">
-                                                    @Html.Partial("_EditReview", brew.Reviews.First(b => b.BrewID == brew.ID))
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    string modalID = "modal" + brew.ID;
-                                    string modalIDHash = "#" + modalID;
-                                    <a class="text-right" style="float:right" data-toggle="modal" data-target="@modalIDHash">Review</a>
-
-                                    <div class="modal fade" id="@modalID" tabindex="-1" role="dialog" aria-labelledby="modalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header row">
-                                                    <div class="modal-title col-md-10" id="modalLongTitle"><b>How did your beer turn out?</b></div>
-                                                    <div class="col-md-2">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div class="modal-body">
-                                                    @Html.Partial("_CreateReview", new Beervolution.Models.Review(brew.ID))
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 }
                             </div>
                         </div>
@@ -326,5 +292,4 @@
             }
         </div>
     </div>
-</div>
-
+</div>  

@@ -40,7 +40,7 @@ namespace Beervolution.Controllers
         public ActionResult Create(int brewID)
         {
             Review review = new Review(brewID);
-            return View();
+            return PartialView("_Create");
         }
 
         // POST: Reviews/Create
@@ -85,7 +85,7 @@ namespace Beervolution.Controllers
             {
                 return HttpNotFound();
             }
-            return View(review);
+            return PartialView("_Edit", review);
         }
 
         // POST: Reviews/Edit/5

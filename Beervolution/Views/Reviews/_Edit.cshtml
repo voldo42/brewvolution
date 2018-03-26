@@ -1,0 +1,116 @@
+﻿@model Beervolution.Models.Review
+
+<script>
+    $(function () {
+            function enableRatings() {
+                $('#taste-rating' + @Model.BrewID).barrating({
+                    theme: 'fontawesome-stars',
+                    initialRating: @Model.TasteRating,
+                    onSelect: function (value, text, event) {
+                        $('#TasteRating').val(value);
+                    }
+                });
+
+                $('#head-rating' + @Model.BrewID).barrating({
+                    theme: 'fontawesome-stars',
+                    initialRating: @Model.HeadRating,
+                    onSelect: function (value, text, event) {
+                        $('#HeadRating').val(value);
+                    }
+                });
+
+                $('#clarity-rating' + @Model.BrewID).barrating({
+                    theme: 'fontawesome-stars',
+                    initialRating: @Model.ClarityRating,
+                    onSelect: function (value, text, event) {
+                        $('#ClarityRating').val(value);
+                    }
+                });
+            }
+        enableRatings();
+        });
+</script>
+
+@using (Html.BeginForm("Edit", "Reviews", FormMethod.Post))
+{
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.HiddenFor(model => model.BrewID)
+            @Html.LabelFor(model => model.TasteRating, htmlAttributes: new { @class = "control-label col-md-3" })
+
+            <div class="col-md-9">
+                @{ string tasteRating = "taste-rating" + Model.BrewID; }
+                <div class="star-ratings start-ratings-main clearfix">
+                    <div class="stars stars-example-fontawesome">
+                        <select id="@tasteRating" name="rating" autocomplete="off">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.TasteRating, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TasteRating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.HeadRating, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @{ string headRating = "head-rating" + Model.BrewID; }
+                <div class="star-ratings start-ratings-main clearfix">
+                    <div class="stars stars-example-fontawesome">
+                        <select id="@headRating" name="rating" autocomplete="off">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.HeadRating, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.HeadRating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClarityRating, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @{ string clarityRating = "clarity-rating" + Model.BrewID; }
+                <div class="star-ratings start-ratings-main clearfix">
+                    <div class="stars stars-example-fontawesome">
+                        <select id="@clarityRating" name="rating" autocomplete="off">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                </div>
+                @Html.HiddenFor(model => model.ClarityRating, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClarityRating, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                @Html.TextAreaFor(model => model.Comments, 6, 60, new { htmlAttributes = new { @class = "form-control", @style = "padding-top: 8px" } })
+                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div style="text-align: center;">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
